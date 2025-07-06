@@ -14,10 +14,10 @@ spec:
       targetRevision: 9.2.10
       helm:
         valueFiles:
-        - $values/multiple-source-application/grafana/prod-values.yaml
+        - $values/multiple-source-application/grafana/prod/prod-values.yaml
     - repoURL: https://github.com/mra89/argocd-demo.git
       targetRevision: HEAD
       ref: values
     - repoURL: https://github.com/mra89/argocd-demo.git
       targetRevision: HEAD
-      path: multiple-source-application/grafana/service.yaml
+      path: multiple-source-application/grafana/prod
