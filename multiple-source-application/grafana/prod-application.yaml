@@ -18,3 +18,6 @@ spec:
     - repoURL: https://github.com/mra89/argocd-demo.git
       targetRevision: HEAD
       ref: values
+    - repoURL: https://github.com/mra89/argocd-demo.git
+      targetRevision: HEAD
+      path: multiple-source-application/grafana/service.yaml
