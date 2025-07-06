@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-prod
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: grafana-prod
+  project: default
+  sources:
+    - chart: grafana
+      repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 9.2.10
+      helm:
+        valueFiles:
+        - $values/multiple-source-application/grafana/prod-values.yaml
+    - repoURL: https://github.com/mra89/argocd-demo.git
+      targetRevision: HEAD
+      ref: values
