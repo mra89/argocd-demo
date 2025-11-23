@@ -50,6 +50,13 @@ applications:
     destination:
       namespace: kyverno
 
+  kyverno-policies:
+    source:
+      path: overlays/local/kyverno-policies
+    destination:
+      namespace: kyverno-policies
+
+
   prometheus:
     source:
       path: overlays/local/prometheus
