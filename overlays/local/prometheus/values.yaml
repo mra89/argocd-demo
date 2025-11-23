@@ -272,8 +272,30 @@ prometheus:
       ##
       evaluation_interval: 1m
     ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write
+    ## Configure Prometheus to remote_write to Grafana (or other remote storage).
+    ## This example references a Kubernetes Secret named `grafana-remote-write` with
+    ## a key `api_key`. Replace the URL and create the Secret with your real API key.
     ##
-    remoteWrite: []
+    remoteWrite:
+      - url: "http://grafana.local/api/prom/push"
+        name: "grafana"
+        # Use basic_auth with username set to "api_key" for Grafana remote_write.
+        basic_auth:
+          username: "api_key"
+          password:
+            valueFrom:
+              secretKeyRef:
+                name: grafana-remote-write
+                key: api_key
+        # Send exemplars if you want traces/exemplars to be forwarded
+        send_exemplars: true
+        # TLS configuration: set to true only if you intentionally want to skip cert verification
+        tls_config:
+          insecure_skip_verify: false
+        # Optional queue config tuning (defaults are usually fine)
+        queue_config:
+          max_samples_per_send: 1000
+          batch_send_deadline: 5s
     ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read
     ##
     remoteRead: []
