@@ -1,6 +1,6 @@
 apiVersion: v2
 type: application
-name: nginx
+name: ingress-nginx
 version: 1.0.0
 dependencies:
   - name: ingress-nginx

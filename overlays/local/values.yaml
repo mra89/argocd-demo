@@ -35,6 +35,6 @@ applications:
   ingress-nginx:
     enableAutoSync: false
     source:
-      path: overlays/local/nginx
+      path: overlays/local/ingress-nginx
     destination:
-      namespace: nginx
+      namespace: ingress-nginx
