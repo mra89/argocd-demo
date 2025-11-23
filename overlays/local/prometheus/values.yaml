@@ -365,36 +365,13 @@ prometheus:
     fullnameOverride: ""
 
     ingress:
-      ## If true, Prometheus server Ingress will be created
-      ##
-      enabled: false
-
-      ingressClassName: ""
-
-      ## Prometheus server Ingress annotations
-      ##
-      annotations: {}
-      #   kubernetes.io/ingress.class: nginx
-      #   kubernetes.io/tls-acme: 'true'
-
-      ## Prometheus server Ingress additional labels
-      ##
-      extraLabels: {}
-
-      ## Redirect ingress to an additional defined port on the service
-      # servicePort: 8081
-
-      ## Prometheus server Ingress hostnames with optional path (passed through tpl)
-      ## Must be provided if Ingress is enabled
-      ##
-      hosts: []
-      #   - prometheus.domain.com
-      #   - domain.com/prometheus
-
-      path: /
-
-      # pathType is only for k8s >= 1.18
-      pathType: Prefix
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - host: prometheus.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
 
       ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
       extraPaths: []
