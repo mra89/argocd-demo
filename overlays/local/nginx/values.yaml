@@ -1,5 +1,4 @@
 nginx:
-  namespaceOverride: nginx
   controller:
     hostNetwork: true
     hostPorts:
