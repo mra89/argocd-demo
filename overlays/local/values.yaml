@@ -22,19 +22,19 @@ default:
 applications:
   argocd:
     source:
-      path: argocd-demo/overlays/local/argocd
+      path: overlays/local/argocd
     destination:
       namespace: argocd
 
   grafana:
     source:
-      path: argocd-demo/overlays/local/grafana
+      path: overlays/local/grafana
     destination:
       namespace: grafana
 
   ingress-nginx:
     enableAutoSync: false
     source:
-      path: argocd-demo/overlays/local/nginx
+      path: overlays/local/nginx
     destination:
       namespace: nginx
