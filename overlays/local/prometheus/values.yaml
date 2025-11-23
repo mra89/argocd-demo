@@ -365,7 +365,7 @@ prometheus:
     fullnameOverride: ""
 
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: nginx
       hosts:
         - host: prometheus.local
