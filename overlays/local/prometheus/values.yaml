@@ -365,13 +365,12 @@ prometheus:
     fullnameOverride: ""
 
     ingress:
-      enabled: false
+      enabled: true
       ingressClassName: nginx
       hosts:
-        - host: prometheus.local
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
+        - prometheus.local
+      path: /
+      pathType: ImplementationSpecific
 
       ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services. (passed through tpl)
       extraPaths: []
