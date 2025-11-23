@@ -38,3 +38,10 @@ applications:
       path: overlays/local/ingress-nginx
     destination:
       namespace: ingress-nginx
+
+  prometheus:
+    enableAutoSync: false
+    source:
+      path: overlays/local/prometheus
+    destination:
+      namespace: prometheus
