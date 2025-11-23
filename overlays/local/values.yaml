@@ -56,6 +56,12 @@ applications:
     destination:
       namespace: prometheus
 
+  policy-reporter:
+    source:
+      path: overlays/local/policy-reporter
+    destination:
+      namespace: policy-reporter
+
   rollout-demo:
     source:
       path: overlays/local/rollout-demo

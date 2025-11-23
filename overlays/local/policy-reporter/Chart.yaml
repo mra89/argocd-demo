@@ -1,0 +1,8 @@
+apiVersion: v2
+type: application
+name: policy-reporter
+version: 1.0.0
+dependencies:
+  - name: policy-reporter
+    version: 3.5.0
+    repository: https://kyverno.github.io/policy-reporter
