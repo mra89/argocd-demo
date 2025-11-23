@@ -1,5 +1,7 @@
 default:
   app:
+    annotations:
+      argocd.argoproj.io/sync-wave: "5"
     enabled: true
     enableAutoSync: true
     autoSyncPrune: true
@@ -21,6 +23,8 @@ default:
 
 applications:
   argocd:
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
     source:
       path: overlays/local/argocd
     destination:
@@ -39,6 +43,8 @@ applications:
       namespace: grafana
 
   ingress-nginx:
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
     source:
       path: overlays/local/ingress-nginx
     destination:
@@ -56,8 +62,9 @@ applications:
     destination:
       namespace: kyverno-policies
 
-
   prometheus:
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
     source:
       path: overlays/local/prometheus
     destination:
