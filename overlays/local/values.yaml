@@ -6,7 +6,7 @@ default:
     destination:
       namespace: argocd
       server: https://kubernetes.default.svc
-    project: null
+    project: default
     source:
       repoURL: https://github.com/mra89/argocd-demo.git
       targetRevision: HEAD
@@ -21,14 +21,12 @@ default:
 
 applications:
   argocd:
-    project: default
     source:
       path: argocd-demo/overlays/local/argocd
     destination:
       namespace: argocd
 
   grafana:
-    project: default
     source:
       path: argocd-demo/overlays/local/grafana
     destination:
@@ -36,7 +34,6 @@ applications:
 
   ingress-nginx:
     enableAutoSync: false
-    project: default
     source:
       path: argocd-demo/overlays/local/nginx
     destination:

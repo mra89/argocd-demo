@@ -4,5 +4,5 @@ helmGlobals:
   chartHome: ../../.helm/charts
 helmCharts:
   - name: argocd-app-of-app
-    valuesFile: value.yaml
+    valuesFile: values.yaml
     namespace: argocd
