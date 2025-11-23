@@ -49,3 +49,9 @@ applications:
       path: overlays/local/prometheus
     destination:
       namespace: prometheus
+
+  rollout-demo:
+    source:
+      path: overlays/local/rollout-demo
+    destination:
+      namespace: rollout-demo
