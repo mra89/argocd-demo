@@ -1,0 +1,10 @@
+nginx:
+  namespaceOverride: nginx
+
+  controller:
+    hostNetwork: true
+    hostPorts:
+      http:
+        hostPort: 80
+      https:
+        hostPort: 443

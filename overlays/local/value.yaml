@@ -1,0 +1,43 @@
+default:
+  app:
+    enabled: true
+    enableAutoSync: true
+    autoSyncPrune: true
+    destination:
+      namespace: argocd
+      server: https://kubernetes.default.svc
+    project: null
+    source:
+      repoURL: https://github.com/mra89/argocd-demo.git
+      targetRevision: HEAD
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+      - ServerSideApply=true
+      - FailOnSharedResource=true
+      - RespectIgnoreDifferences=true
+
+applications:
+  argocd:
+    project: default
+    source:
+      path: argocd-demo/overlays/local/argocd
+    destination:
+      namespace: argocd
+
+  grafana:
+    project: default
+    source:
+      path: argocd-demo/overlays/local/grafana
+    destination:
+      namespace: grafana
+
+  ingress-nginx:
+    enableAutoSync: false
+    project: default
+    source:
+      path: argocd-demo/overlays/local/nginx
+    destination:
+      namespace: nginx
