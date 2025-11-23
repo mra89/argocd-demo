@@ -8,5 +8,3 @@ helmCharts:
     releaseName: prometheus
     namespace: prometheus
     valuesFile: values.yaml
-resources:
-  - secret.yaml
