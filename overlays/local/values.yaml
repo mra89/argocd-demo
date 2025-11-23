@@ -44,6 +44,12 @@ applications:
     destination:
       namespace: ingress-nginx
 
+  kyvenro:
+    source:
+      path: overlays/local/kyvenro
+    destination:
+      namespace: kyvenro
+
   prometheus:
     source:
       path: overlays/local/prometheus
