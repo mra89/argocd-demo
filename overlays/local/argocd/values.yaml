@@ -1,213 +1,214 @@
-global:
-  domain: argocd.local
-  revisionHistoryLimit: 3
-  image:
-    imagePullPolicy: Always
-    repository: quay.io/argoproj/argocd
-  logging:
-    format: text
-    level: info
+argocd:
+  global:
+    domain: argocd.local
+    revisionHistoryLimit: 3
+    image:
+      imagePullPolicy: Always
+      repository: quay.io/argoproj/argocd
+    logging:
+      format: text
+      level: info
 
-crds:
-  install: true
-  keep: false
+  crds:
+    install: true
+    keep: false
 
-applicationSet:
-  name: applicationset-controller
-  replicas: 1
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-commitServer:
-  enabled: true
-  name: commit-server
-  metrics:
-    enabled: true
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
-configs:
-  cm:
-    admin.enabled: true
-    resource.customizations: |
-      networking.k8s.io/Ingress:
-        health.lua: |
-          return {
-            status = "Healthy",
-            message = "HACK: Skip health check for Ingress (override in argo-cd.config.cm chart val), see https://github.com/argoproj/argo-cd/issues/14607",
-          }
-    kustomize.buildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm
-    application.instanceLabelKey: argocd.argoproj.io/instance
-    create: true
-    exec.enabled: true
-    exec.shells: bash,sh
-  params:
-    application.namespaces: '*'
-    controller.diff.server.side: 'true'
-    controller.kubectl.parallelism.limit: 100
-    controller.ignore.normalizer.jq.timeout: 1s
-    controller.operation.processors: 300
-    controller.repo.server.timeout.seconds: 180
-    controller.self.heal.timeout.seconds: 5
-    controller.status.processors: 600
-    controller.sync.timeout.seconds: 0
-    create: true
-    reposerver.parallelism.limit: 0
-    server.insecure: true
-    server.repo.server.timeout.seconds: 180
-  rbac:
-    create: true
-    policy.csv: |
-    policy.default: role:default-access
-    scopes: '[groups]'
-  tls:
-    create: true
-
-  styles: |
-    div.columns.small-9.top-bar__left-side {
-      background: #303237;
-    }
-    div.columns.top-bar__left-side,
-    div.top-bar__title.text-truncate.top-bar__right-side {
-      background: #2fb170;
-      color: #fff;
-    }
-    .top-bar__breadcrumbs a {
-      color: #fff !important;
-    }
-    .top-bar__breadcrumbs {
-      color: #fff !important;
-    }
-    .top-title {
-      color: #fff !important;
-    }
-
-controller:
-  name: application-controller
-  extraArgs:
-    command:
-    - argocd-application-controller
-    - --status-processors
-    - "20"
-    - --operation-processors
-    - "10"
-    - --repo-server-timeout-seconds
-    - "180"
-    - --metrics-application-labels
-    - dynatrace-alert
-
-  env:
-  - name: ARGOCD_CONTROLLER_REPLICAS
-    value: "3"
-  - name: ARGOCD_K8S_CLIENT_QPS
-    value: "150"
-  - name: ARGOCD_K8S_CLIENT_BURST
-    value: "300"
-  dynamicClusterDistribution: true
-  replicas: 3
-  resources:
-    limits:
-      cpu: 2500m
-      memory: 2000Mi
-    requests:
-      cpu: 1500m
-      memory: 1000Mi
-
-dex:
-  enabled: false
-
-notifications:
-  enabled: false
-  metrics:
-    enabled: true
-  name: notifications-controller
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-  secret:
-    create: false
-    name: argocd-notifications-secret
-
-redis-ha:
-  enabled: true
-  redis:
-    enabled: true
-    name: redis
+  applicationSet:
+    name: applicationset-controller
+    replicas: 1
     resources:
       limits:
-        cpu: 200m
+        cpu: 100m
         memory: 128Mi
       requests:
         cpu: 100m
-        memory: 64Mi
-  image:
-    repository: ecr-public.aws.com/docker/library/redis
+        memory: 128Mi
 
-  haproxy:
+  commitServer:
     enabled: true
+    name: commit-server
+    metrics:
+      enabled: true
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  configs:
+    cm:
+      admin.enabled: true
+      resource.customizations: |
+        networking.k8s.io/Ingress:
+          health.lua: |
+            return {
+              status = "Healthy",
+              message = "HACK: Skip health check for Ingress (override in argo-cd.config.cm chart val), see https://github.com/argoproj/argo-cd/issues/14607",
+            }
+      kustomize.buildOptions: --enable-alpha-plugins --load-restrictor LoadRestrictionsNone --helm-command /usr/local/bin/helm
+      application.instanceLabelKey: argocd.argoproj.io/instance
+      create: true
+      exec.enabled: true
+      exec.shells: bash,sh
+    params:
+      application.namespaces: '*'
+      controller.diff.server.side: 'true'
+      controller.kubectl.parallelism.limit: 100
+      controller.ignore.normalizer.jq.timeout: 1s
+      controller.operation.processors: 300
+      controller.repo.server.timeout.seconds: 180
+      controller.self.heal.timeout.seconds: 5
+      controller.status.processors: 600
+      controller.sync.timeout.seconds: 0
+      create: true
+      reposerver.parallelism.limit: 0
+      server.insecure: true
+      server.repo.server.timeout.seconds: 180
+    rbac:
+      create: true
+      policy.csv: |
+      policy.default: role:default-access
+      scopes: '[groups]'
+    tls:
+      create: true
+
+    styles: |
+      div.columns.small-9.top-bar__left-side {
+        background: #303237;
+      }
+      div.columns.top-bar__left-side,
+      div.top-bar__title.text-truncate.top-bar__right-side {
+        background: #2fb170;
+        color: #fff;
+      }
+      .top-bar__breadcrumbs a {
+        color: #fff !important;
+      }
+      .top-bar__breadcrumbs {
+        color: #fff !important;
+      }
+      .top-title {
+        color: #fff !important;
+      }
+
+  controller:
+    name: application-controller
+    extraArgs:
+      command:
+      - argocd-application-controller
+      - --status-processors
+      - "20"
+      - --operation-processors
+      - "10"
+      - --repo-server-timeout-seconds
+      - "180"
+      - --metrics-application-labels
+      - dynatrace-alert
+
+    env:
+    - name: ARGOCD_CONTROLLER_REPLICAS
+      value: "3"
+    - name: ARGOCD_K8S_CLIENT_QPS
+      value: "150"
+    - name: ARGOCD_K8S_CLIENT_BURST
+      value: "300"
+    dynamicClusterDistribution: true
+    replicas: 3
+    resources:
+      limits:
+        cpu: 2500m
+        memory: 2000Mi
+      requests:
+        cpu: 1500m
+        memory: 1000Mi
+
+  dex:
+    enabled: false
+
+  notifications:
+    enabled: false
+    metrics:
+      enabled: true
+    name: notifications-controller
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+    secret:
+      create: false
+      name: argocd-notifications-secret
+
+  redis-ha:
+    enabled: true
+    redis:
+      enabled: true
+      name: redis
+      resources:
+        limits:
+          cpu: 200m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 64Mi
     image:
-      repository: ecr-public.aws.com/docker/library/haproxy
+      repository: ecr-public.aws.com/docker/library/redis
 
-redisSecretInit:
-  enabled: true
-  name: redis-secret-init
+    haproxy:
+      enabled: true
+      image:
+        repository: ecr-public.aws.com/docker/library/haproxy
 
-repoServer:
-  name: repo-server
-  env:
-  - name: ARGOCD_EXEC_TIMEOUT
-    value: "180s"
-  - name: ARGOCD_GIT_ATTEMPTS_COUNT
-    value: "3"
-  - name: ARGOCD_HELM_ALLOW_CONCURRENCY
-    value: "true"
-  metrics:
+  redisSecretInit:
     enabled: true
-  replicas: 3
-  resources:
-    limits:
-      cpu: 2000m
-      memory: 2568Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+    name: redis-secret-init
 
-server:
-  name: server
-  env:
-  - name: ARGOCD_API_SERVER_REPLICAS
-    value: "3"
-  ingress:
-    annotations:
-      nginx.org/websocket-services: argocd-server
-    controller: generic
-    enabled: true
-    hostname: argocd.local
-    ingressClassName: nginx
-    path: /
-    pathType: ImplementationSpecific
-    tls: false
-  metrics:
-    enabled: true
-  replicas: 3
-  resources:
-    limits:
-      cpu: 500m
-      memory: 500Mi
-    requests:
-      cpu: 250m
-      memory: 250Mi
+  repoServer:
+    name: repo-server
+    env:
+    - name: ARGOCD_EXEC_TIMEOUT
+      value: "180s"
+    - name: ARGOCD_GIT_ATTEMPTS_COUNT
+      value: "3"
+    - name: ARGOCD_HELM_ALLOW_CONCURRENCY
+      value: "true"
+    metrics:
+      enabled: true
+    replicas: 3
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2568Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  server:
+    name: server
+    env:
+    - name: ARGOCD_API_SERVER_REPLICAS
+      value: "3"
+    ingress:
+      annotations:
+        nginx.org/websocket-services: argocd-server
+      controller: generic
+      enabled: true
+      hostname: argocd.local
+      ingressClassName: nginx
+      path: /
+      pathType: ImplementationSpecific
+      tls: false
+    metrics:
+      enabled: true
+    replicas: 3
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 250m
+        memory: 250Mi
