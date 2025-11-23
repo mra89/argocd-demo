@@ -26,6 +26,12 @@ applications:
     destination:
       namespace: argocd
 
+  argo-rollouts:
+    source:
+      path: overlays/local/argo-rollouts
+    destination:
+      namespace: argo-rollouts
+
   grafana:
     source:
       path: overlays/local/grafana
