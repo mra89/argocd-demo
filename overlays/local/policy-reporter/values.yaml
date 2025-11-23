@@ -116,10 +116,12 @@ policy-reporter:
   ingress:
     enabled: true
     className: nginx
-    path: /
     pathType: ImplementationSpecific
     hosts:
      - host: policy-reporter.local
+       paths:
+        - path: /
+          pathType: ImplementationSpecific
 
   logging:
     # -- Enables server access logging
