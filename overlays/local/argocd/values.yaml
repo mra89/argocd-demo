@@ -3,7 +3,7 @@ argocd:
     domain: argocd.local
     revisionHistoryLimit: 3
     image:
-      imagePullPolicy: Always
+      imagePullPolicy: IfNotPresent
       repository: quay.io/argoproj/argocd
     logging:
       format: text
