@@ -115,7 +115,7 @@ argocd:
     - name: ARGOCD_K8S_CLIENT_BURST
       value: "300"
     dynamicClusterDistribution: true
-    replicas: 3
+    replicas: 1
     resources:
       limits:
         cpu: 2500m
@@ -144,7 +144,7 @@ argocd:
       name: argocd-notifications-secret
 
   redis-ha:
-    enabled: true
+    enabled: false
     redis:
       enabled: true
       name: redis
@@ -178,7 +178,7 @@ argocd:
       value: "true"
     metrics:
       enabled: true
-    replicas: 3
+    replicas: 1
     resources:
       limits:
         cpu: 2000m
@@ -204,7 +204,7 @@ argocd:
       tls: false
     metrics:
       enabled: true
-    replicas: 3
+    replicas: 1
     resources:
       limits:
         cpu: 500m
