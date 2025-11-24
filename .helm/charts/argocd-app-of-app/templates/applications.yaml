@@ -53,11 +53,10 @@ spec:
     {{- if hasKey $val "syncPolicyRetry" }}
     retry: {{- toYaml $val.syncPolicyRetry | nindent 6 }}
     {{- end }}
-    {{- if hasKey $val "syncOptions" }}
+    {{- $syncOpts := $val.syncOptions | default $.Values.default.app.syncOptions }}
+    {{- if $syncOpts }}
     syncOptions:
-      {{- with $val.syncOptions }}
-      {{ toYaml . }}
-      {{- end }}
+    {{- toYaml $syncOpts | nindent 6 }}
     {{- end}}
 {{- end }}
   source:
