@@ -11,7 +11,7 @@ argocd:
 
   crds:
     install: true
-    keep: false
+    keep: true
 
   applicationSet:
     name: applicationset-controller
