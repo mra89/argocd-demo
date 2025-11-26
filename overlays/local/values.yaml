@@ -50,6 +50,12 @@ applications:
     destination:
       namespace: ingress-nginx
 
+  kargo:
+    source:
+      path: overlays/local/kargo
+    destination:
+      namespace: kargo
+
   kyverno:
     source:
       path: overlays/local/kyverno
