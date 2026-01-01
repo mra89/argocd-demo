@@ -281,11 +281,7 @@ server:
       # Use basic_auth with username set to "api_key" for Grafana remote_write.
       basic_auth:
         username: "api_key"
-        password:
-          valueFrom:
-            secretKeyRef:
-              name: grafana-remote-write
-              key: api_key
+        password: "super-strong-password"
       # Send exemplars if you want traces/exemplars to be forwarded
       send_exemplars: true
       # TLS configuration: set to true only if you intentionally want to skip cert verification
