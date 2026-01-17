@@ -213,7 +213,7 @@ headlamp:
 
   ingress:
     # -- Enable ingress controller resource
-    enabled: false
+    enabled: true
     # -- Annotations for Ingress resource
     annotations:
       {}
@@ -225,16 +225,15 @@ headlamp:
       # environment: prod
 
     # -- Ingress class name. replacement for the deprecated "kubernetes.io/ingress.class" annotation
-    ingressClassName: ""
+    ingressClassName: nginx
 
     # -- Hostname(s) for the Ingress resource
     # Please refer to https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec for more information.
     hosts:
-      []
-      # - host: chart-example.local
-      #   paths:
-      #   - path: /
-      #     type: ImplementationSpecific
+      - host: headlamp.local
+        paths:
+        - path: /
+          type: ImplementationSpecific
     # -- Ingress TLS configuration
     tls: []
     #  - secretName: chart-example-tls
