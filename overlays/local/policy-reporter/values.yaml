@@ -981,7 +981,7 @@ tmpVolume: {}
 
 ui:
   # -- (bool) Enable Policy Reporter UI
-  enabled: false
+  enabled: true
   image:
     # -- (string) Image registry
     registry: ghcr.io
