@@ -42,6 +42,12 @@ applications:
     destination:
       namespace: grafana
 
+  headlamp:
+    source:
+      path: overlays/local/headlamp
+    destination:
+      namespace: headlamp
+
   ingress-nginx:
     annotations:
       argocd.argoproj.io/sync-wave: "0"
