@@ -119,6 +119,8 @@ configmapReload:
     resources: {}
 
 server:
+  extraHostPathMounts: []
+
   ## Prometheus server container name
   ##
   name: server
