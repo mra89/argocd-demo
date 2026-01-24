@@ -1,0 +1,34 @@
+global:
+  clusterSecretsNamespace: kargo
+  createClusterSecretsNamespace: false
+
+api:
+  host: kargo.local
+  secret:
+    name: kargo-api
+  oidc:
+    dex:
+      tls:
+        selfSignedCert: false
+  tls:
+    enabled: false
+    selfSignedCert: false
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    tls:
+      enabled: false
+      selfSignedCert: false
+
+externalWebhooksServer:
+  tls:
+    enabled: false
+    selfSignedCert: false
+  ingress:
+    tls:
+      enabled: false
+      selfSignedCert: false
+
+webhooksServer:
+  tls:
+    selfSignedCert: false
