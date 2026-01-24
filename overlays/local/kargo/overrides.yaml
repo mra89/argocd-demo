@@ -6,10 +6,6 @@ api:
   host: kargo.local
   secret:
     name: kargo-admin-account
-  oidc:
-    dex:
-      tls:
-        selfSignedCert: false
   tls:
     enabled: false
     selfSignedCert: false
