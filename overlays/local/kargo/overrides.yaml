@@ -5,7 +5,7 @@ global:
 api:
   host: kargo.local
   secret:
-    name: kargo-api
+    name: kargo-admin-account
   oidc:
     dex:
       tls:
