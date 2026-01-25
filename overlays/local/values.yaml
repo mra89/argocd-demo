@@ -2,7 +2,7 @@ default:
   app:
     annotations:
       argocd.argoproj.io/sync-wave: "5"
-      argo.octopus.com/environment: sandbox
+      argo.octopus.com/environment: Development
       argo.octopus.com/project: default
     enabled: true
     enableAutoSync: true
