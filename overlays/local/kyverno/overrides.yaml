@@ -1,0 +1,21 @@
+config:
+  excludeGroups: []
+  webhooks:
+    namespaceSelector:
+      matchExpressions:
+      - key: kubernetes.io/metadata.name
+        operator: NotIn
+        values:
+          - kube-system
+          - kyverno
+          - kube-public
+          - kube-node-lease
+  resourceFiltersIncludeNamespaces:
+    - kyverno
+    - kube-system
+    - kube-public
+    - kube-node-lease
+
+features:
+  backgroundScan:
+    skipResourceFilters: false
