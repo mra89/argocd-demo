@@ -10,7 +10,7 @@ global:
 
 crds:
   install: true
-  keep: true
+  keep: false
 
 applicationSet:
   name: applicationset-controller
