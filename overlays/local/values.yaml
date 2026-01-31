@@ -71,10 +71,12 @@ applications:
       namespace: kyverno
 
   kyverno-policies:
+    annotations:
+      argocd.argoproj.io/sync-wave: "0"
     source:
       path: overlays/local/kyverno-policies
     destination:
-      namespace: kyverno-policies
+      namespace: kyverno
 
   prometheus:
     annotations:
