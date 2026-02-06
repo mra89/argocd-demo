@@ -79,8 +79,6 @@ applications:
       namespace: kyverno
 
   prometheus:
-    annotations:
-      argocd.argoproj.io/sync-wave: "0"
     source:
       path: overlays/local/prometheus
     destination:
