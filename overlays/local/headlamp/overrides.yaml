@@ -1,0 +1,7 @@
+ingress:
+  ingressClassName: nginx
+  hosts:
+    - host: headlamp.local
+      paths:
+      - path: /
+        type: ImplementationSpecific

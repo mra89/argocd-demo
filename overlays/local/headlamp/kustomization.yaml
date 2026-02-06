@@ -7,6 +7,9 @@ helmCharts:
     releaseName: headlamp
     namespace: headlamp
     valuesFile: values.yaml
+    valuesMerge: override
+    additionalValuesFiles:
+      - overrides.yaml
 resources:
   - service-account.yaml
   - secret.yaml
