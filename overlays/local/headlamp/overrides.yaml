@@ -1,4 +1,5 @@
 ingress:
+  enabled: true
   ingressClassName: nginx
   hosts:
     - host: headlamp.local
