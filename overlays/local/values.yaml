@@ -38,6 +38,10 @@ applications:
     destination:
       namespace: argo-rollouts
 
+  eniconfig:
+    source:
+      path: overlays/local/eniconfig
+
   grafana:
     source:
       path: overlays/local/grafana
