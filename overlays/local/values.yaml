@@ -39,6 +39,7 @@ applications:
       namespace: argo-rollouts
 
   eniconfig:
+    enableAutoSync: false
     source:
       path: overlays/local/eniconfig
 
