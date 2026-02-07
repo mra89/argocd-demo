@@ -64,6 +64,7 @@ applications:
       namespace: ingress-nginx
 
   kargo:
+    enableAutoSync: false
     source:
       path: overlays/local/kargo
     destination:
