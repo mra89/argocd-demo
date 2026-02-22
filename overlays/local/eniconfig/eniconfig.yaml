@@ -2,8 +2,6 @@ apiVersion: crd.k8s.amazonaws.com/v1alpha1
 kind: ENIConfig
 metadata:
   name: us-east-1b
-  annotations:
-    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   securityGroups:
   - sg-0a3ed80d7dbfb9192
