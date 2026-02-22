@@ -33,6 +33,7 @@ applications:
       namespace: argocd
 
   argo-rollouts:
+    enabled: false
     source:
       path: overlays/local/argo-rollouts
     destination:
