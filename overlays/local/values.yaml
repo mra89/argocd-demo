@@ -41,7 +41,7 @@ applications:
 
   eniconfig:
     annotations:
-      argocd.argoproj.io/compare-options: ServerSideDiff=true
+      argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
     enableAutoSync: false
     source:
       path: overlays/local/eniconfig
