@@ -1,0 +1,8 @@
+apiVersion: crd.k8s.amazonaws.com/v1alpha1
+kind: ENIConfig
+metadata:
+  name: kubectl-apply-annotation
+spec:
+  securityGroups:
+  - sg-0a3ed80d7dbfb9192
+  subnet: subnet-0e45b42118ac58700
