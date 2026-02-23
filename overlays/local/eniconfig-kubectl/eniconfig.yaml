@@ -1,7 +1,7 @@
 apiVersion: crd.k8s.amazonaws.com/v1alpha1
 kind: ENIConfig
 metadata:
-  name: us-east-1c
+  name: kubectl-apply
 spec:
   securityGroups:
   - sg-0a3ed80d7dbfb9192
