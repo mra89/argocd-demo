@@ -32,6 +32,13 @@ applications:
     destination:
       namespace: argocd
 
+  argocd-monorepo-controller:
+    enableAutoSync: false
+    source:
+      path: overlays/local/argocd-monorepo-controller
+    destination:
+      namespace: argocd
+
   argo-rollouts:
     enabled: false
     source:
