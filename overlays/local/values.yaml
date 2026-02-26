@@ -44,18 +44,6 @@ applications:
     source:
       path: overlays/local/eniconfig
 
-  eniconfig-kubectl:
-    enableAutoSync: false
-    source:
-      path: overlays/local/eniconfig-kubectl
-
-  eniconfig-kubectl-annotation:
-    annotations:
-      argocd.argoproj.io/compare-options: IncludeMutationWebhook=true
-    enableAutoSync: false
-    source:
-      path: overlays/local/eniconfig-kubectl-annotation
-
   grafana:
     source:
       path: overlays/local/grafana
