@@ -51,6 +51,11 @@ applications:
     source:
       path: overlays/local/eniconfig
 
+  eniconfig-kubectl-apply:
+    enableAutoSync: false
+    source:
+      path: overlays/local/eniconfig-kubectl-apply
+
   grafana:
     source:
       path: overlays/local/grafana
