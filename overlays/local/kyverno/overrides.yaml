@@ -19,3 +19,8 @@ config:
 features:
   backgroundScan:
     skipResourceFilters: false
+
+backgroundController:
+  extraEnvVars:
+    - name: BACKGROUND_SCAN_INTERVAL
+      value: 5m

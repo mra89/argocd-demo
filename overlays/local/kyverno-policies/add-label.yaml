@@ -1,0 +1,38 @@
+apiVersion: policies.kyverno.io/v1
+kind: MutatingPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/category: Other
+    policies.kyverno.io/description: Adds the label 'ppdm-backup-enabled=true' to new and existing namespaces
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/title: Add PPDM Backup Enabled Label to Namespaces
+  name: add-ppdm-backup-enabled-label-namespaces
+spec:
+  evaluation:
+    admission:
+      enabled: true
+    mutateExisting:
+      enabled: true
+  matchConstraints:
+    resourceRules:
+    - apiGroups:
+      - ""
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - namespaces
+  mutations:
+  - applyConfiguration:
+      expression: |
+        Object{
+          metadata: Object.metadata{
+            labels: {
+              "ppdm-backup-enabled": "true"
+            }
+          }
+        }
+    patchType: ApplyConfiguration

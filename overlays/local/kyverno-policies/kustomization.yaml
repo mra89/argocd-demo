@@ -7,3 +7,5 @@ helmCharts:
     releaseName: kyverno-policies
     namespace: kyverno
     valuesFile: values.yaml
+resources:
+  - add-label.yaml
