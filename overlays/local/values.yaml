@@ -103,6 +103,13 @@ applications:
     destination:
       namespace: kyverno
 
+  metrics-server:
+    enableAutoSync: false
+    source:
+      path: overlays/local/metrics-server
+    destination:
+      namespace: kube-system
+
   prometheus:
     source:
       path: overlays/local/prometheus
