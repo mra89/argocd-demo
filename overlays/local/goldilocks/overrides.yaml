@@ -1,0 +1,9 @@
+dashboard:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - host: goldilocks.local
+        paths:
+          - path: /
+            type: ImplementationSpecific

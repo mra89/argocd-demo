@@ -56,6 +56,12 @@ applications:
     source:
       path: overlays/local/eniconfig-kubectl-apply
 
+  goldilocks:
+    source:
+      path: overlays/local/goldilocks
+    destination:
+      namespace: goldilocks
+
   grafana:
     source:
       path: overlays/local/grafana
