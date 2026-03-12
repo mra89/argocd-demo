@@ -110,6 +110,10 @@ applications:
     destination:
       namespace: kube-system
 
+  misc-crds:
+    source:
+      path: overlays/local/misc-crds
+
   prometheus:
     source:
       path: overlays/local/prometheus
