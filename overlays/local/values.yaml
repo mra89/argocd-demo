@@ -56,6 +56,13 @@ applications:
     source:
       path: overlays/local/eniconfig-kubectl-apply
 
+  external-secrets:
+    enableAutoSync: false
+    source:
+      path: overlays/local/external-secrets
+    destination:
+      namespace: external-secrets
+
   goldilocks:
     source:
       path: overlays/local/goldilocks
