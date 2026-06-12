@@ -1,4 +1,4 @@
-{{- range $key,$val := .Values.applications }}
+{{- range $key, $val := .Values.applications }}
 {{- if (hasKey $val "enabled" | ternary $val.enabled $.Values.default.app.enabled) }}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -24,8 +24,18 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 {{- end }}
+
+{{- if hasKey $val "finalizers" }}
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  {{- range $finalizer := $val.finalizers }}
+  - {{ $finalizer }}
+  {{- end }}
+{{- else if hasKey $.Values.default.app "finalizers" }}
+  finalizers:
+  {{- range $finalizer := $.Values.default.app.finalizers }}
+  - {{ $finalizer }}
+  {{- end }}
+{{- end }}
 spec:
   destination:
     namespace: {{ (($val.destination).namespace) | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified for %s" $key ) }}
@@ -35,9 +45,9 @@ spec:
     name: {{ $name }}
     {{- else if $server }}
     server: {{ $server }}
-    {{- else}}
+    {{- else }}
     {{- required (printf "No destination.server or destination.name specified for %s" $key ) }}
-    {{- end}}
+    {{- end }}
 {{- if $.Values.projectOverride }}
   project: {{ $.Values.projectOverride }}
 {{- else }}
@@ -53,25 +63,70 @@ spec:
     {{- if hasKey $val "syncPolicyRetry" }}
     retry: {{- toYaml $val.syncPolicyRetry | nindent 6 }}
     {{- end }}
-    {{- $syncOpts := $val.syncOptions | default $.Values.default.app.syncOptions }}
+    {{- $syncOpts := list }}
+    {{- if hasKey $val "syncOptions" }}
+    {{- $syncOpts = $val.syncOptions }}
+    {{- else }}
+    {{- $syncOpts = $.Values.default.app.syncOptions }}
+    {{- end }}
     {{- if $syncOpts }}
     syncOptions:
     {{- toYaml $syncOpts | nindent 6 }}
     {{- end}}
 {{- end }}
+{{- if hasKey $val "sources" }}
+  sources:
+  {{- range $source := $val.sources }}
+    - {{- if hasKey $source "path" }} path: {{ tpl $source.path $ }}
+      {{- else if hasKey $source "chart" }} chart: {{ tpl $source.chart $ }}
+      {{- end }}
+      {{- if hasKey $source "ref" }} ref: {{ tpl $source.ref $ }}
+      {{- end }}
+      repoURL: {{ $source.repoURL | default $.Values.default.app.source.repoURL | required (printf "No source.repoURL specified for %s" $key ) }}
+      targetRevision: {{ $source.targetRevision | default $.Values.default.app.source.targetRevision | required (printf "No source.targetRevision specified for %s" $key ) }}
+      {{- if hasKey $source "helm" }}
+      helm:
+        {{- if hasKey $source.helm "valueFiles" }}
+        valueFiles:
+          {{- range $file := $source.helm.valueFiles }}
+          - {{ $file }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if ($source | default dict ).extraSourceFields }}
+      {{ tpl $source.extraSourceFields $ | indent 6 }}
+      {{- else if $.Values.default.app.source.extraSourceFields }}
+      {{ tpl $.Values.default.app.source.extraSourceFields $ | indent 6 }}
+      {{- end }}
+  {{- end }}
+{{- else }}
   source:
     path: {{ tpl $val.source.path $ }}
     repoURL: {{ $val.source.repoURL | default $.Values.default.app.source.repoURL | required (printf "No source.repoURL specified for %s" $key ) }}
     targetRevision: {{ $val.source.targetRevision | default $.Values.default.app.source.targetRevision | required (printf "No source.targetRevision specified for %s" $key ) }}
-{{- if ($val.source | default dict ).extraSourceFields }}
-{{ tpl $val.source.extraSourceFields $ | indent 4 }}
-{{- else if $.Values.default.app.source.extraSourceFields }}
-{{ tpl $.Values.default.app.source.extraSourceFields $ | indent 4 }}
+    {{- if hasKey $val.source "helm" }}
+    helm:
+      {{- if hasKey $val.source.helm "valueFiles" }}
+      valueFiles:
+        {{- range $file := $val.source.helm.valueFiles }}
+        - {{ $file }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- if ($val.source | default dict ).extraSourceFields }}
+    {{ tpl $val.source.extraSourceFields $ | indent 4 }}
+    {{- else if $.Values.default.app.source.extraSourceFields }}
+    {{ tpl $.Values.default.app.source.extraSourceFields $ | indent 4 }}
+    {{- end }}
 {{- end }}
 {{- if $val.extraFields }}
 {{ tpl $val.extraFields $ | indent 2 }}
 {{- else if $.Values.default.app.extraFields }}
 {{ tpl $.Values.default.app.extraFields $ | indent 2 }}
+{{- end }}
+{{- if $val.ignoreDifferences }}
+  ignoreDifferences:
+{{ toYaml $val.ignoreDifferences | indent 4 }}
 {{- end }}
 {{- end }}
 {{- end }}

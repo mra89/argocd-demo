@@ -131,3 +131,9 @@ applications:
       path: overlays/local/rollout-demo
     destination:
       namespace: rollout-demo
+
+  vault:
+    source:
+      path: overlays/local/vault
+    destination:
+      namespace: vault
